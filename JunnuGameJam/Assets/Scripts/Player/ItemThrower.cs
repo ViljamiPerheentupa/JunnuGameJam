@@ -10,6 +10,7 @@ public class ItemThrower : MonoBehaviour
     [SerializeField] private float _throwVerticalForce;
     private GameObject _heldObject;
     private Transform _oldParent;
+    private float _pickupTick;
 
     private InputAction _throwAction;
     private InputAction _interactAction;
@@ -26,7 +27,7 @@ public class ItemThrower : MonoBehaviour
         {
             Throw();
         }
-        if(CanThrow() && _interactAction.WasPressedThisFrame())
+        if(CanThrow() && _interactAction.WasPressedThisFrame() && Time.time - _pickupTick >= 0.1f)
         {
             DropObject();
         }
@@ -65,6 +66,7 @@ public class ItemThrower : MonoBehaviour
             _rb.isKinematic = true;
         }
         _heldObject = _obj;
+        _pickupTick = Time.time;
     }
     bool CanThrow()
     {

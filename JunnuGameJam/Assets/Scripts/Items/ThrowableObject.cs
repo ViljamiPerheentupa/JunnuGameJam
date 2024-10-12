@@ -5,6 +5,7 @@ using UnityEngine;
 public class ThrowableObject : MonoBehaviour, IInteractable
 {
     public string objectName;
+    [SerializeField] private string prompt;
 
     public InteractType interactType { get; private set; }
 
@@ -20,6 +21,11 @@ public class ThrowableObject : MonoBehaviour, IInteractable
     public string ObjectName()
     {
         return objectName;
+    }
+
+    public string Prompt()
+    {
+        return prompt;
     }
 
     public InteractType InteractionType()

@@ -53,7 +53,6 @@ public class InteractionPrompt : MonoBehaviour
 
     public void ShowPrompt(string _prompt)
     {
-        Debug.Log("yea");
         _promptText.text = _prompt;
         if (_promptCanvasGroup.alpha != 1f && !_appearing)
         {

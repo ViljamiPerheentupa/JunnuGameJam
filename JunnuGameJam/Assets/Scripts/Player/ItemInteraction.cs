@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 
-public enum InteractType { Held = 0, Environmental = 1 }
+public enum InteractType { Held = 0, Environmental = 1, HoldEnvironmental = 2 }
 public class ItemInteraction : MonoBehaviour
 {
     public static ItemInteraction Instance;
@@ -38,6 +38,7 @@ public class ItemInteraction : MonoBehaviour
     {
         if (other.CompareTag("Interactable"))
         {
+            Debug.Log("ye");
             IInteractable newObject = other.GetComponent<IInteractable>();
             if (!_objectsInRadius.Contains(newObject))
             {
@@ -84,13 +85,16 @@ public class ItemInteraction : MonoBehaviour
         {
             _selectedObject = null;
         }
-        if(_selectedObject != null && _interactAction.WasPressedThisFrame())
-        {
-            _selectedObject.Interact();
-        }
         if(_selectedObject != null)
         {
             UIPrompt(_selectedObject.InteractionType());
+            if(_selectedObject.InteractionType() == InteractType.HoldEnvironmental && _interactAction.IsPressed())
+            {
+                _selectedObject.Interact();
+            } else if (_selectedObject.InteractionType() != InteractType.HoldEnvironmental && _interactAction.WasPressedThisFrame())
+            {
+                _selectedObject.Interact();
+            }
         }
         if(_selectedObject == null && InteractionPrompt.Instance.PromptVisible())
         {
@@ -103,11 +107,15 @@ public class ItemInteraction : MonoBehaviour
         string _prompt = string.Empty;
         if(_type == InteractType.Held)
         {
-            _prompt = "Press E to pick up '" + _selectedObject.ObjectName() + "'";
+            _prompt = "Press E to " + _selectedObject.Prompt() + " " + _selectedObject.ObjectName();
         }
         if(_type == InteractType.Environmental)
         {
-            _prompt = "Press E to interact with '" + _selectedObject.ObjectName() + "'";
+            _prompt = "Press E to " + _selectedObject.Prompt() + " " + _selectedObject.ObjectName();
+        }
+        if(_type == InteractType.HoldEnvironmental)
+        {
+            _prompt = "Hold E to " + _selectedObject.Prompt() + " " + _selectedObject.ObjectName();
         }
         InteractionPrompt.Instance.ShowPrompt(_prompt);
     }
@@ -115,5 +123,10 @@ public class ItemInteraction : MonoBehaviour
     public void PickupItem(GameObject _obj)
     {
         _thrower.GrabObject(_obj);
+    }
+
+    public void DeselectObject()
+    {
+        _selectedObject = null;
     }
 }

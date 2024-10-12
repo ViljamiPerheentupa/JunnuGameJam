@@ -19,5 +19,7 @@ public interface IInteractable
 {
     void Interact();
     string ObjectName();
+
+    string Prompt();
     InteractType InteractionType();
 }
