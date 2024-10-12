@@ -20,6 +20,14 @@ public class MonsterBehaviour : MonoBehaviour
         InitiliazeEnemy();
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.collider.CompareTag("Interactable") && collision.rigidbody.velocity.magnitude > 0.1f)
+        {
+            Debug.Log("Object was thrown at me :(");
+        }
+    }
+
     void Update()
     {
         if(_state == MonsterState.Moving)
