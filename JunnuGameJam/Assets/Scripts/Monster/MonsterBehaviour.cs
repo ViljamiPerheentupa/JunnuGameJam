@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public enum MonsterState { Moving, Swinging, Backswing, Reeling, }
+public enum MonsterState { Moving, Swinging, Backswing, Reeling, Death }
 public class MonsterBehaviour : MonoBehaviour
 {
+    [SerializeField] private float _maxHealth;
+    private float _health;
     private Transform _player;
     private NavMeshAgent _agent;
     private MonsterState _state;
     [SerializeField] private float _swingRadius = 1f;
     [SerializeField] LayerMask _mask;
     [SerializeField] private float _damagePerSwing = 50f;
+    [SerializeField] private float _maxStopDuration = 1.5f;
+    float _reelTick, _reelDuration;
     bool _swinging;
     void Start()
     {
@@ -22,14 +26,26 @@ public class MonsterBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.collider.CompareTag("Interactable") && collision.rigidbody.velocity.magnitude > 0.1f)
+        if(collision.collider.CompareTag("Interactable") && collision.rigidbody.velocity.y != 0f)
         {
-            Debug.Log("Object was thrown at me :(");
+            float _damageAmount = 15f * collision.rigidbody.mass;
+            if(_health - _damageAmount <= 0f)
+            {
+                _health = 0f;
+                _state = MonsterState.Death;
+            } else
+            {
+                _health -= _damageAmount;
+                float _stopTime = _damageAmount / _maxHealth * _maxStopDuration;
+                Reel(_stopTime);
+                Debug.Log("I took " + _damageAmount + " damage and was stopped for " + _stopTime + " seconds :(");
+            }
         }
     }
 
     void Update()
     {
+        _agent.isStopped = _state == MonsterState.Moving ? false : true;
         if(_state == MonsterState.Moving)
         {
             _agent.destination = _player.position;
@@ -42,12 +58,27 @@ public class MonsterBehaviour : MonoBehaviour
         {
             Swing();
         }
-
+        if(_state == MonsterState.Reeling)
+        {
+            if(Time.time - _reelTick >= _reelDuration)
+            {
+                _reelDuration = 0f;
+                _state = MonsterState.Moving;
+            }
+        }
     }
 
     void InitiliazeEnemy()
     {
         _state = MonsterState.Moving;
+        _health = _maxHealth;
+    }
+
+    void Reel(float _duration)
+    {
+        _state = MonsterState.Reeling;
+        _reelDuration = _duration;
+        _reelTick = Time.time;
     }
 
     void Swing()

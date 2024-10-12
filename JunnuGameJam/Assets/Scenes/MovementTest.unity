@@ -1370,7 +1370,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 843759717}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 2
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -3029,7 +3029,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!136 &1714006616
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3081,11 +3081,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffcc7f6e816cec54d9d686fa17950c6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxHealth: 60
   _swingRadius: 1
   _mask:
     serializedVersion: 2
     m_Bits: 8
   _damagePerSwing: 50
+  _maxStopDuration: 3
 --- !u!195 &1714006621
 NavMeshAgent:
   m_ObjectHideFlags: 0

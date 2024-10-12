@@ -50,8 +50,8 @@ public class ItemThrower : MonoBehaviour
         foreach (Collider _collider in _heldColliders)
         {
             _collider.enabled = true;
-            _heldColliders.Remove(_collider);
         }
+        _heldColliders.Clear();
     }
 
     public void DropObject()
@@ -63,8 +63,8 @@ public class ItemThrower : MonoBehaviour
         foreach (Collider _collider in _heldColliders)
         {
             _collider.enabled = true;
-            _heldColliders.Remove(_collider);
         }
+        _heldColliders.Clear();
     }
 
     public void GrabObject(GameObject _obj)
