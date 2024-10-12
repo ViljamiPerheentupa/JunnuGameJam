@@ -53,7 +53,7 @@ public class Stamina : MonoBehaviour
         }
         if (_currentStamina / _maxStamina > _staminaBarAlwaysShowAmount)
         {
-            if ((!_usingStamina && !_uiShowAfterUse) && _uiVisible || _uiShowingUp)
+            if ((!_usingStamina && !_uiShowAfterUse && !_uiHiding) && _uiVisible || _uiShowingUp)
             {
                 _uiShowAfterUse = true;
                 _uiTick = Time.time;
@@ -85,8 +85,8 @@ public class Stamina : MonoBehaviour
         if(Time.time >= _uiTick + _staminaBarShowTime)
         {
             _uiHiding = true;
-            _uiShowAfterUse = false;
             _uiHideTick = Time.time;
+            _uiShowAfterUse = false;
         }
     }
 
