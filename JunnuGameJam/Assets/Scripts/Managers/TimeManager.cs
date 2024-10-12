@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class TimeManager : MonoBehaviour
 {
@@ -10,10 +12,19 @@ public class TimeManager : MonoBehaviour
     private float seconds = 0f;
     private int currentDay;
     public DateAndTime time;
+    [SerializeField] private DateAndTime _startTime;
     [SerializeField] float _timeMultiplier;
     float _timeTick;
 
-    bool _daySwitch;
+    bool _daySwitch, _fadeIn, _fadeOut, _timePassing, _blackScreen;
+    [SerializeField] float _fadeInDuration;
+    [SerializeField] float _fadeOutDuration;
+    [SerializeField] float _blackScreenDuration;
+    [SerializeField] float _daySwitchDuration;
+    float _fadeInTick, _fadeOutTick, _switchTick, _blackScreenTick;
+
+    [SerializeField] CanvasGroup _blackScreenCanvas;
+    [SerializeField] TMP_Text _dayText;
 
     private void Awake()
     {
@@ -32,29 +43,104 @@ public class TimeManager : MonoBehaviour
     void Update()
     {
         TimePassage();
+        SwitchDay();
+        if(Keyboard.current.enterKey.wasPressedThisFrame)
+        {
+            StartTime();
+        }
     }
 
     void TimePassage()
     {
-        if(Time.time - _timeTick >= 1f)
+        if(_timePassing)
         {
-            seconds += 1f * _timeMultiplier;
-            _timeTick = Time.time;
-            if (seconds >= 60f)
+            if (Time.time - _timeTick >= 1f)
             {
-                seconds -= 60f;
-                time.AddMinutes(1);
-                if(!_daySwitch && time.days != currentDay)
+                seconds += 1f * _timeMultiplier;
+                _timeTick = Time.time;
+                while (seconds >= 60f)
                 {
-                    SwitchDay();
+                    seconds -= 60f;
+                    time.AddMinutes(1);
+                    if (!_daySwitch && time.days != currentDay)
+                    {
+                        _fadeIn = true;
+                        _fadeInTick = Time.unscaledTime;
+                        currentDay++;
+                        PauseTime();
+                    }
                 }
             }
         }
     }
 
-    void SwitchDay()
+    public void StartTime()
     {
+        time = _startTime;
+        currentDay = time.days;
+        _dayText.text = "Day 1";
+        _blackScreenCanvas.alpha = 1;
         _daySwitch = true;
+        _switchTick = Time.unscaledTime;
+    }
+
+    public void SwitchDay()
+    {
+        if (_fadeIn)
+        {
+            float newAlpha = Mathf.Lerp(0f, 1f, (Time.unscaledTime - _fadeInTick) / _fadeInDuration);
+            _blackScreenCanvas.alpha = newAlpha;
+            if(newAlpha == 1f)
+            {
+                _fadeIn = false;
+                _blackScreenTick = Time.unscaledTime;
+                _blackScreen = true;
+            }
+        }
+        if (_blackScreen)
+        {
+            if (Time.unscaledTime - _blackScreenTick >= _blackScreenDuration)
+            {
+                _blackScreen = false;
+                _daySwitch = true;
+                _switchTick = Time.unscaledTime;
+                _dayText.text = "Day " + currentDay;
+            }
+        }
+        if (_daySwitch)
+        {
+            Time.timeScale = 0f;
+            if (Time.unscaledTime - _switchTick >= _daySwitchDuration)
+            {
+                _daySwitch = false;
+                Time.timeScale = 1f;
+                _fadeOut = true;
+                _fadeOutTick = Time.unscaledTime;
+                time.SetTime(currentDay, _startTime.hours, _startTime.minutes);
+                ResumeTime();
+            }
+        }
+        if(_fadeOut)
+        {
+            float newAlpha = Mathf.Lerp(1f, 0f, (Time.unscaledTime - _fadeOutTick) / _fadeOutDuration);
+            _blackScreenCanvas.alpha = newAlpha;
+            if(newAlpha == 0f)
+            {
+                _fadeOut = false;
+                _dayText.text = string.Empty;
+            }
+        }
+    }
+
+    public void PauseTime()
+    {
+        _timePassing = false;
+    }
+
+    public void ResumeTime()
+    {
+        _timePassing = true;
+        _timeTick = Time.time;
     }
 
     public string CurrentTime()
@@ -86,8 +172,9 @@ public struct DateAndTime
     public int hours;
     public int minutes;
 
-    public void SetTime(int _hours, int _minutes)
+    public void SetTime(int _days, int _hours, int _minutes)
     {
+        days = _days;
         hours = _hours;
         minutes = _minutes;
     }
@@ -106,7 +193,7 @@ public struct DateAndTime
     {
         while(hours + amount > 23)
         {
-            amount -= 23;
+            amount -= 24;
             days++;
         }
         hours += amount;
