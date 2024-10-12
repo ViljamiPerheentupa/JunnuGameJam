@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e8d49fc436493f40a47a21708715785, type: 3}
+  m_Name: Default
+  m_EditorClassIdentifier: 
+  dataName: Default
+  movementSpeed: 5
+  jumpForce: 6
+  airControl: 0.4
+  airAcceleration: 2
+  airDeacceleration: 2
+  sideStrafeSpeed: 1
+  sideStrafeAcceleration: 50
+  runAcceleration: 8
+  runDeacceleration: 4
+  friction: 6
