@@ -2,18 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using TMPro;
 
+public enum InteractType { Held = 0, Environmental = 1 }
 public class ItemInteraction : MonoBehaviour
 {
+    public static ItemInteraction Instance;
+
     private List<IInteractable> _objectsInRadius = new List<IInteractable>();
     private IInteractable _selectedObject;
     [SerializeField] private LayerMask _mask;
-    private float _radius;
+    [SerializeField] private Transform _itemHolder;
+    ItemThrower _thrower;
 
-    private void Start()
+    InputAction _interactAction;
+
+    TMP_Text _interactPrompt;
+
+    private void Awake()
     {
-        _radius = 2.5f;
+        if(Instance == null)
+        {
+            Instance = this;
+        } else
+        {
+            Debug.LogError("Multiple instances of " + name + " were detected.");
+            Destroy(gameObject);
+        }
+        _interactAction = InputSystem.actions.FindAction("Interact");
+        _thrower = _itemHolder.GetComponent<ItemThrower>();
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Interactable"))
@@ -22,7 +42,6 @@ public class ItemInteraction : MonoBehaviour
             if (!_objectsInRadius.Contains(newObject))
             {
                 _objectsInRadius.Add(newObject);
-                Debug.Log("Added " + newObject);
             }
         }
     }
@@ -35,7 +54,6 @@ public class ItemInteraction : MonoBehaviour
             if (_objectsInRadius.Contains(leavingObject))
             {
                 _objectsInRadius.Remove(leavingObject);
-                Debug.Log("Removed " + leavingObject);
             }
         }
     }
@@ -45,7 +63,7 @@ public class ItemInteraction : MonoBehaviour
         if(_objectsInRadius.Count > 0)
         {
             RaycastHit hit;
-            if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, _radius, _mask))
+            if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, Mathf.Infinity, _mask))
             {
                 IInteractable hitObject = hit.collider.GetComponent<IInteractable>();
                 if(hitObject != null)
@@ -54,15 +72,48 @@ public class ItemInteraction : MonoBehaviour
                     {
                         _selectedObject = hitObject;
                     }
-                    _selectedObject.Interact();
-                }
-            } else
-            {
-                if(_selectedObject != null)
+                } else
                 {
                     _selectedObject = null;
                 }
+            } else
+            {
+                _selectedObject = null;
             }
+        } else
+        {
+            _selectedObject = null;
         }
+        if(_selectedObject != null && _interactAction.WasPressedThisFrame())
+        {
+            _selectedObject.Interact();
+        }
+        if(_selectedObject != null)
+        {
+            UIPrompt(_selectedObject.InteractionType());
+        }
+        if(_selectedObject == null && InteractionPrompt.Instance.PromptVisible())
+        {
+            InteractionPrompt.Instance.HidePrompt();
+        }
+    }
+
+    void UIPrompt(InteractType _type)
+    {
+        string _prompt = string.Empty;
+        if(_type == InteractType.Held)
+        {
+            _prompt = "Press E to pick up '" + _selectedObject.ObjectName() + "'";
+        }
+        if(_type == InteractType.Environmental)
+        {
+            _prompt = "Press E to interact with '" + _selectedObject.ObjectName() + "'";
+        }
+        InteractionPrompt.Instance.ShowPrompt(_prompt);
+    }
+
+    public void PickupItem(GameObject _obj)
+    {
+        _thrower.GrabObject(_obj);
     }
 }

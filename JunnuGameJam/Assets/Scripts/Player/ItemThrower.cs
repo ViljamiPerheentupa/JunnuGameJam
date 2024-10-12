@@ -1,0 +1,73 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
+
+public class ItemThrower : MonoBehaviour
+{
+    [SerializeField] private float _throwForce;
+    [SerializeField] private float _throwVerticalForce;
+    private GameObject _heldObject;
+    private Transform _oldParent;
+
+    private InputAction _throwAction;
+    private InputAction _interactAction;
+
+    private void Start()
+    {
+        _throwAction = InputSystem.actions.FindAction("Attack");
+        _interactAction = InputSystem.actions.FindAction("Interact");
+    }
+
+    private void Update()
+    {
+        if(CanThrow() && _throwAction.WasPressedThisFrame())
+        {
+            Throw();
+        }
+        if(CanThrow() && _interactAction.WasPressedThisFrame())
+        {
+            DropObject();
+        }
+    }
+
+    void Throw()
+    {
+        Rigidbody _rb = _heldObject.GetComponent<Rigidbody>();
+        _rb.isKinematic = false;
+        _rb.AddForce(Camera.main.transform.forward * _throwForce + Vector3.up * _throwVerticalForce, ForceMode.Impulse);
+        _heldObject.transform.parent = _oldParent;
+        _heldObject = null;
+    }
+
+    public void DropObject()
+    {
+        Rigidbody _rb = _heldObject.GetComponent<Rigidbody>();
+        _rb.isKinematic = false;
+        _heldObject.transform.parent = _oldParent;
+        _heldObject = null;
+    }
+
+    public void GrabObject(GameObject _obj)
+    {
+        if(_heldObject != null)
+        {
+            DropObject();
+        }
+        _oldParent = _obj.transform.parent;
+        _obj.transform.position = transform.position;
+        _obj.transform.rotation = transform.rotation;
+        _obj.transform.parent = transform;
+        if (_obj.GetComponent<Rigidbody>() != null)
+        {
+            Rigidbody _rb = _obj.GetComponent<Rigidbody>();
+            _rb.isKinematic = true;
+        }
+        _heldObject = _obj;
+    }
+    bool CanThrow()
+    {
+        return _heldObject != null;
+    }
+}

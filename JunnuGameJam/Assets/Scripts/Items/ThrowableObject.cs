@@ -4,9 +4,26 @@ using UnityEngine;
 
 public class ThrowableObject : MonoBehaviour, IInteractable
 {
-    [SerializeField] string objectName;
+    public string objectName;
+
+    public InteractType interactType { get; private set; }
+
+    void Start()
+    {
+        interactType = InteractType.Held;
+    }
     public void Interact()
     {
-        Debug.Log(objectName);
+        ItemInteraction.Instance.PickupItem(gameObject);
+    }
+
+    public string ObjectName()
+    {
+        return objectName;
+    }
+
+    public InteractType InteractionType()
+    {
+        return interactType;
     }
 }

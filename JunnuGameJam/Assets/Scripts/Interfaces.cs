@@ -18,4 +18,6 @@ public interface IChangeMovementData
 public interface IInteractable
 {
     void Interact();
+    string ObjectName();
+    InteractType InteractionType();
 }

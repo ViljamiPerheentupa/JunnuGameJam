@@ -16,7 +16,7 @@ MonoBehaviour:
   movementSpeed: 5
   jumpForce: 6
   airControl: 0.4
-  airAcceleration: 2
+  airAcceleration: 1.2
   airDeacceleration: 2
   sideStrafeSpeed: 1
   sideStrafeAcceleration: 50
