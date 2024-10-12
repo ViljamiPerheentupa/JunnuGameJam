@@ -11,7 +11,7 @@ public class ItemThrower : MonoBehaviour
     [SerializeField] private float _heldObjectPositionDelay = 0.8f;
     private float _delayTick;
     private GameObject _heldObject;
-    private Collider _heldCollider;
+    private List<Collider> _heldColliders = new List<Collider>();
     private Transform _oldParent;
     private float _pickupTick;
 
@@ -45,21 +45,26 @@ public class ItemThrower : MonoBehaviour
     {
         Rigidbody _rb = _heldObject.GetComponent<Rigidbody>();
         _rb.isKinematic = false;
-        _heldCollider.enabled = true;
         _rb.AddForce(Camera.main.transform.forward * _throwForce + Vector3.up * _throwVerticalForce, ForceMode.Impulse);
-        //_heldObject.transform.parent = _oldParent;
         _heldObject = null;
-        _heldCollider = null;
+        foreach (Collider _collider in _heldColliders)
+        {
+            _collider.enabled = true;
+            _heldColliders.Remove(_collider);
+        }
     }
 
     public void DropObject()
     {
         Rigidbody _rb = _heldObject.GetComponent<Rigidbody>();
         _rb.isKinematic = false;
-        _heldCollider.enabled = true;
         _heldObject.transform.parent = _oldParent;
         _heldObject = null;
-        _heldCollider = null;
+        foreach (Collider _collider in _heldColliders)
+        {
+            _collider.enabled = true;
+            _heldColliders.Remove(_collider);
+        }
     }
 
     public void GrabObject(GameObject _obj)
@@ -75,17 +80,21 @@ public class ItemThrower : MonoBehaviour
             _offset = _obj.transform.position - _obj.transform.Find("GrabOffset").position;
             _rotation = _obj.transform.Find("GrabOffset").rotation;
         }
-        //_oldParent = _obj.transform.parent;
+
         _obj.transform.position = transform.position + _offset;
         _obj.transform.rotation = _rotation;
-        //_obj.transform.parent = transform;
+
         if (_obj.GetComponent<Rigidbody>() != null)
         {
             Rigidbody _rb = _obj.GetComponent<Rigidbody>();
             _rb.isKinematic = true;
         }
-        _heldCollider = _obj.GetComponent<Collider>();
-        _heldCollider.enabled = false;
+        Collider[] _collidersInObj = _obj.GetComponentsInChildren<Collider>();
+        foreach(Collider _collider in _collidersInObj)
+        {
+            _heldColliders.Add(_collider);
+            _collider.enabled = false;
+        }
         _heldObject = _obj;
         _pickupTick = Time.time;
     }
