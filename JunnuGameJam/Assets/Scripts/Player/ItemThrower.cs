@@ -9,7 +9,7 @@ public class ItemThrower : MonoBehaviour
     [SerializeField] private float _throwForce;
     [SerializeField] private float _throwVerticalForce;
     [SerializeField] private float _heldObjectPositionDelay = 0.8f;
-    private float _delayTick;
+    private Vector3 _targetPosition;
     private GameObject _heldObject;
     private List<Collider> _heldColliders = new List<Collider>();
     private Transform _oldParent;
@@ -74,15 +74,13 @@ public class ItemThrower : MonoBehaviour
             DropObject();
         }
         Vector3 _offset = Vector3.zero;
-        Quaternion _rotation = Quaternion.identity;
         if(_obj.transform.Find("GrabOffset") != null)
         {
             _offset = _obj.transform.position - _obj.transform.Find("GrabOffset").position;
-            _rotation = _obj.transform.Find("GrabOffset").rotation;
         }
 
         _obj.transform.position = transform.position + _offset;
-        _obj.transform.rotation = _rotation;
+        _targetPosition = _obj.transform.position + _offset;
 
         if (_obj.GetComponent<Rigidbody>() != null)
         {
