@@ -56,9 +56,16 @@ public class ItemThrower : MonoBehaviour
         {
             DropObject();
         }
+        Vector3 _offset = Vector3.zero;
+        Quaternion _rotation = Quaternion.identity;
+        if(_obj.transform.Find("GrabOffset") != null)
+        {
+            _offset = _obj.transform.Find("GrabOffset").position - _obj.transform.position;
+            _rotation = _obj.transform.Find("GrabOffset").rotation;
+        }
         _oldParent = _obj.transform.parent;
-        _obj.transform.position = transform.position;
-        _obj.transform.rotation = transform.rotation;
+        _obj.transform.position = transform.position + _offset;
+        _obj.transform.rotation = _rotation;
         _obj.transform.parent = transform;
         if (_obj.GetComponent<Rigidbody>() != null)
         {
