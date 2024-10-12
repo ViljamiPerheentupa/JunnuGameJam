@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: c87aebcc3bfe2bf4cb6adbe2af248aea, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.13382
+      value: -8.693743
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c87aebcc3bfe2bf4cb6adbe2af248aea, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.4831212
+      value: 0.9674965
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c87aebcc3bfe2bf4cb6adbe2af248aea, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.3273473
+      value: 6.053238
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c87aebcc3bfe2bf4cb6adbe2af248aea, type: 3}
       propertyPath: m_LocalRotation.w
@@ -56,8 +56,89 @@ PrefabInstance:
       propertyPath: m_Name
       value: shaker_pepper
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c87aebcc3bfe2bf4cb6adbe2af248aea, type: 3}
+      propertyPath: m_TagString
+      value: Interactable
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c87aebcc3bfe2bf4cb6adbe2af248aea, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5537952307003312467}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c87aebcc3bfe2bf4cb6adbe2af248aea, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4505695401199299777}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c87aebcc3bfe2bf4cb6adbe2af248aea, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4956824745807172163}
   m_SourcePrefab: {fileID: 100100000, guid: c87aebcc3bfe2bf4cb6adbe2af248aea, type: 3}
+--- !u!1 &5096613391149407253 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c87aebcc3bfe2bf4cb6adbe2af248aea, type: 3}
+  m_PrefabInstance: {fileID: 5367067212873507140}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &5537952307003312467
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5096613391149407253}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -129975887249829622, guid: c87aebcc3bfe2bf4cb6adbe2af248aea, type: 3}
+--- !u!54 &4505695401199299777
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5096613391149407253}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &4956824745807172163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5096613391149407253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b969f747a49d03d4cac6ed1581cd9831, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: salt shaker
+  prompt: pick up
