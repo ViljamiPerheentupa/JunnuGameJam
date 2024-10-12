@@ -17,5 +17,5 @@ public interface IChangeMovementData
 
 public interface IInteractable
 {
-    void KickHit(Vector3 direction, float force);
+    void Interact();
 }
