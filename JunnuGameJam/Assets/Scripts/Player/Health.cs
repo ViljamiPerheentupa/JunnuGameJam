@@ -46,7 +46,7 @@ public class Health : MonoBehaviour
         health -= _amount;
         if (health < 0)
         {
-            //DO THE DEATH;
+            GameManager.Instance.PlayerDeath();
             return;
         }
         _lastDamageTick = Time.time;
