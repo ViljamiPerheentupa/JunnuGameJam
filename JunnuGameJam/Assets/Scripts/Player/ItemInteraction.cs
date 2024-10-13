@@ -38,7 +38,6 @@ public class ItemInteraction : MonoBehaviour
     {
         if (other.CompareTag("Interactable"))
         {
-            Debug.Log("ye");
             IInteractable newObject = other.GetComponent<IInteractable>();
             if (!_objectsInRadius.Contains(newObject))
             {
@@ -123,6 +122,7 @@ public class ItemInteraction : MonoBehaviour
     public void PickupItem(GameObject _obj)
     {
         _thrower.GrabObject(_obj);
+        AudioFW.Instance.PlaySound("PickUp");
     }
 
     public void DeselectObject()
