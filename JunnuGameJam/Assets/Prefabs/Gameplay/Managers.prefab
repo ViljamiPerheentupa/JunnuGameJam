@@ -61,13 +61,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   time:
     days: 0
-    hours: 6
+    hours: 22
     minutes: 30
   _startTime:
     days: 1
-    hours: 23
-    minutes: 30
-  _timeMultiplier: 60
+    hours: 0
+    minutes: 0
+  _dayEndTime:
+    days: 0
+    hours: 8
+    minutes: 0
+  _timeMultiplier: 96
   _fadeInDuration: 4
   _fadeOutDuration: 1.5
   _blackScreenDuration: 2.5

@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: food
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d899a1f2705010948a8bbfe8bfcbb9b8, type: 3}
+      propertyPath: m_TagString
+      value: Interactable
+      objectReference: {fileID: 0}
     - target: {fileID: 5703133849569751261, guid: d899a1f2705010948a8bbfe8bfcbb9b8, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -79,6 +83,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d899a1f2705010948a8bbfe8bfcbb9b8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 474760443286653884}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d899a1f2705010948a8bbfe8bfcbb9b8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1627444204448794296}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d899a1f2705010948a8bbfe8bfcbb9b8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2367344965010839023}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d899a1f2705010948a8bbfe8bfcbb9b8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5536399870760547581}
     - targetCorrespondingSourceObject: {fileID: -6532757620658093926, guid: d899a1f2705010948a8bbfe8bfcbb9b8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1195194465536663920}
@@ -109,6 +122,75 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &1627444204448794296
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2191883197834261895}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.0721562, y: 0.69386756, z: 0.7481203}
+  m_Center: {x: -0.006815791, y: -0.15306622, z: 0.013082981}
+--- !u!114 &2367344965010839023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2191883197834261895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d4846bd806b7b049b070f25586e467e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: beer cheese soup..?
+  prompt: ingest
+  requiredItem: 
+  _depleteRequiredItem: 0
+  interactType: 2
+  _holdDuration: 7.5
+  _progressSaved: 0
+  _repeatable: 1
+  _interactEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5536399870760547581}
+        m_TargetAssemblyTypeName: StaminaAffector, Assembly-CSharp
+        m_MethodName: AddStamina
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5536399870760547581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2191883197834261895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16e5d3b7aa0bda94595ac1b7eca8b4c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _staminaPerUse: 75
 --- !u!1 &4034293397688748108 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6532757620658093926, guid: d899a1f2705010948a8bbfe8bfcbb9b8, type: 3}
