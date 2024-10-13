@@ -677,6 +677,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 423822476}
+  - component: {fileID: 423822478}
   - component: {fileID: 423822475}
   - component: {fileID: 423822477}
   m_Layer: 0
@@ -761,6 +762,18 @@ MonoBehaviour:
   _monsterPrefabs:
   - {fileID: 8518799521911796683, guid: 07e4fd9a9bcceff4db839580ec835ad5, type: 3}
   _lastDaySpawnTime: 12.5
+--- !u!114 &423822478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423822474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bdd05971af9ec846a6cc6f5bda23fc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &440893907
 Mesh:
   m_ObjectHideFlags: 0

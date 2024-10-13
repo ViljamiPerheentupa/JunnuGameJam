@@ -44,10 +44,6 @@ public class TimeManager : MonoBehaviour
     {
         TimePassage();
         SwitchDay();
-        if(Keyboard.current.enterKey.wasPressedThisFrame)
-        {
-            StartTime();
-        }
     }
 
     void TimePassage()
