@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
     bool _gamePaused;
     [SerializeField] CanvasGroup _menuGroup;
     [SerializeField] CanvasGroup _introGroup;
+    [SerializeField] Volume _pauseVolume;
     float _introDuration = 15f;
     float _introTick;
 
@@ -52,6 +54,13 @@ public class GameManager : MonoBehaviour
                 _introGroup.alpha = 0f;
                 StartGame();
             }
+            if (_menuAction.WasPressedThisFrame())
+            {
+                _intro = false;
+                _introGroup.alpha = 0f;
+                StartGame();
+                return;
+            }
         }
         if (_menuAction.WasPressedThisFrame() && !_gamePaused)
         {
@@ -67,7 +76,9 @@ public class GameManager : MonoBehaviour
         _menuGroup.alpha = 1f;
         _menuGroup.interactable = true;
         TimeManager.Instance.PauseTime();
+        _pauseVolume.weight = 1f;
         Time.timeScale = 0f;
+        CameraController.Instance.cameraState = CameraState.Locked;
     }
 
     void ResumeGame()
@@ -75,7 +86,9 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         _menuGroup.alpha = 0f;
         _menuGroup.interactable = false;
+        _pauseVolume.weight = 0f;
         TimeManager.Instance.ResumeTime();
+        CameraController.Instance.cameraState = CameraState.Restricted;
     }
 
     public void StartGame()

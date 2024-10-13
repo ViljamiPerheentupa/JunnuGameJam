@@ -487,8 +487,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -788, y: -463}
-  m_SizeDelta: {x: -1618.9233, y: -1020.60596}
+  m_AnchoredPosition: {x: -788, y: -443.3735}
+  m_SizeDelta: {x: -1618.9233, y: -981.35297}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &66606169
 MonoBehaviour:
@@ -510,7 +510,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Created By: Lenni M. Viljami P.'
+  m_text: 'Created By: Lenni M. Viljami P.
+
+    Additional sounds provided by Joel
+    Verner'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7146c48d4779ffc4bb32e5adc1c89930, type: 2}
   m_sharedMaterial: {fileID: 5129070257394252461, guid: 7146c48d4779ffc4bb32e5adc1c89930, type: 2}
@@ -7971,9 +7974,9 @@ RectTransform:
   m_Children:
   - {fileID: 1846092199}
   - {fileID: 1791738507}
-  - {fileID: 483532412}
   - {fileID: 66606168}
   - {fileID: 1067897640}
+  - {fileID: 483532412}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -10238,7 +10241,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1791738509}
+  m_TargetGraphic: {fileID: 1637149827}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -10267,7 +10270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -10587,7 +10590,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.754717, g: 0.754717, b: 0.754717, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -10606,7 +10609,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1846092201}
+  m_TargetGraphic: {fileID: 805116289}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -10635,7 +10638,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

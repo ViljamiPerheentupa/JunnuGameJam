@@ -97,10 +97,16 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: d058667da8aaa3f45a2bfd566b3c7d46, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3232047150176600771}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: d058667da8aaa3f45a2bfd566b3c7d46, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6182871626861710550}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d058667da8aaa3f45a2bfd566b3c7d46, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4255781317443182900}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d058667da8aaa3f45a2bfd566b3c7d46, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6990619303029576254}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d058667da8aaa3f45a2bfd566b3c7d46, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1139847000385000240}
@@ -132,9 +138,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectName: coffee cup
   prompt: pick up
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 0
   _onCollisionEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6990619303029576254}
+        m_TargetAssemblyTypeName: SoundEmitter, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6990619303029576254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5651129992441623060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bc6c69f517b94e4ea139eec71daa795, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audio:
+  - {fileID: 6152237045383250935}
+  - {fileID: 3594149468429996661}
+  - {fileID: 8337770879908530280}
+  - {fileID: 3867754658938016777}
 --- !u!64 &1139847000385000240
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -184,3 +222,85 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!1001 &7239466383662827654
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4982960743025060014}
+    m_Modifications:
+    - target: {fileID: 258719657437385296, guid: 6508ad24f76eafa45a2356405b99171b, type: 3}
+      propertyPath: m_Name
+      value: Audio
+      objectReference: {fileID: 0}
+    - target: {fileID: 3583238770607375440, guid: 6508ad24f76eafa45a2356405b99171b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3583238770607375440, guid: 6508ad24f76eafa45a2356405b99171b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3583238770607375440, guid: 6508ad24f76eafa45a2356405b99171b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3583238770607375440, guid: 6508ad24f76eafa45a2356405b99171b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3583238770607375440, guid: 6508ad24f76eafa45a2356405b99171b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3583238770607375440, guid: 6508ad24f76eafa45a2356405b99171b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3583238770607375440, guid: 6508ad24f76eafa45a2356405b99171b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3583238770607375440, guid: 6508ad24f76eafa45a2356405b99171b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3583238770607375440, guid: 6508ad24f76eafa45a2356405b99171b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3583238770607375440, guid: 6508ad24f76eafa45a2356405b99171b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6508ad24f76eafa45a2356405b99171b, type: 3}
+--- !u!82 &3594149468429996661 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6167463875344538355, guid: 6508ad24f76eafa45a2356405b99171b, type: 3}
+  m_PrefabInstance: {fileID: 7239466383662827654}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &3867754658938016777 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 5898244431563594895, guid: 6508ad24f76eafa45a2356405b99171b, type: 3}
+  m_PrefabInstance: {fileID: 7239466383662827654}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &6152237045383250935 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 3537263798082308977, guid: 6508ad24f76eafa45a2356405b99171b, type: 3}
+  m_PrefabInstance: {fileID: 7239466383662827654}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6182871626861710550 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3583238770607375440, guid: 6508ad24f76eafa45a2356405b99171b, type: 3}
+  m_PrefabInstance: {fileID: 7239466383662827654}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &8337770879908530280 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1712060693702869230, guid: 6508ad24f76eafa45a2356405b99171b, type: 3}
+  m_PrefabInstance: {fileID: 7239466383662827654}
+  m_PrefabAsset: {fileID: 0}
