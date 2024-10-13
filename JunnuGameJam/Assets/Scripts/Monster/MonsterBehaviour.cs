@@ -20,6 +20,10 @@ public class MonsterBehaviour : MonoBehaviour
     bool _swinging;
     [SerializeField] UnityEvent _onDeathEvent;
     [SerializeField] Animator _animator;
+
+    [SerializeField] AudioSource _attackSFX;
+    [SerializeField] AudioSource _hurtSFX;
+    [SerializeField] AudioSource _deathSFX;
     void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -36,12 +40,15 @@ public class MonsterBehaviour : MonoBehaviour
             {
                 _health = 0f;
                 _state = MonsterState.Death;
+                _deathSFX.Play();
                 _animator.SetTrigger("Death");
+                _onDeathEvent.Invoke();
             } else
             {
                 _health -= _damageAmount;
                 float _stopTime = _damageAmount / _maxHealth * _maxStopDuration;
                 Reel(_stopTime);
+                _hurtSFX.Play();
                 _animator.SetTrigger("Reel");
             }
         }
@@ -58,9 +65,11 @@ public class MonsterBehaviour : MonoBehaviour
                 _state = MonsterState.Swinging;
             }
         }
-        if(_state == MonsterState.Swinging)
+        if(_state == MonsterState.Swinging && !_swinging)
         {
+            _attackSFX.Play();
             _animator.SetTrigger("Attack");
+            _swinging = true;
         }
         if(_state == MonsterState.Reeling)
         {
@@ -87,12 +96,13 @@ public class MonsterBehaviour : MonoBehaviour
 
     public void Swing()
     {
-        if (Physics.CheckBox(transform.forward + Vector3.forward, Vector3.one, transform.rotation, _mask))
+        if (Physics.CheckBox(transform.position + transform.forward + Vector3.up, Vector3.one * _swingRadius, transform.rotation, _mask))
         {
             Health.Instance.ReduceHealth(_damagePerSwing);
         }
         _state = MonsterState.Backswing;
         StartCoroutine(Backswing(2f));
+        _swinging = false;
     }
 
     IEnumerator Backswing(float _duration)
@@ -103,7 +113,6 @@ public class MonsterBehaviour : MonoBehaviour
 
     public void Death()
     {
-        _onDeathEvent.Invoke();
         Destroy(gameObject);
     }
 }
