@@ -4153,7 +4153,7 @@ MonoBehaviour:
   gravity: -20
   coyoteTimeMax: 0.1
   maxJumpQueueTime: 0.02
-  distancePerStep: 1.5
+  distancePerStep: 2.5
 --- !u!114 &1233221797783165004
 MonoBehaviour:
   m_ObjectHideFlags: 0
