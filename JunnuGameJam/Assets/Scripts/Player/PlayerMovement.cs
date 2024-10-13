@@ -128,6 +128,7 @@ public class PlayerMovement : MonoBehaviour, IForceInheritance, IChangeMovementD
         }
         if (stepDistance >= distancePerStep)
         {
+            AudioFW.Instance.PlaySound("Footstep" + StepRandomizer());
             stepDistance = 0;
         }
         lastPosition = transform.position;
@@ -135,7 +136,7 @@ public class PlayerMovement : MonoBehaviour, IForceInheritance, IChangeMovementD
 
     int StepRandomizer()
     {
-        int stepIndex = Random.Range(1, 6);
+        int stepIndex = Random.Range(0, 4);
         if(lastStepIndex == -1)
         {
             lastStepIndex = stepIndex;
@@ -144,7 +145,7 @@ public class PlayerMovement : MonoBehaviour, IForceInheritance, IChangeMovementD
         {
             while(stepIndex == lastStepIndex)
             {
-                stepIndex = Random.Range(1, 6);
+                stepIndex = Random.Range(0, 4);
             }
         } return stepIndex;
         
