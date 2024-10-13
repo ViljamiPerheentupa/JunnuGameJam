@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public enum MonsterState { Moving, Swinging, Backswing, Reeling, Death }
 public class MonsterBehaviour : MonoBehaviour
@@ -17,6 +18,7 @@ public class MonsterBehaviour : MonoBehaviour
     [SerializeField] private float _maxStopDuration = 1.5f;
     float _reelTick, _reelDuration;
     bool _swinging;
+    [SerializeField] UnityEvent _onDeathEvent;
     void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -26,19 +28,19 @@ public class MonsterBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.collider.CompareTag("Interactable") && collision.rigidbody.velocity.y != 0f)
+        if(collision.collider.CompareTag("Interactable") && collision.rigidbody.velocity.y != 0f && collision.rigidbody.velocity.magnitude > 1f)
         {
             float _damageAmount = 15f * collision.rigidbody.mass;
             if(_health - _damageAmount <= 0f)
             {
                 _health = 0f;
                 _state = MonsterState.Death;
+                Death();
             } else
             {
                 _health -= _damageAmount;
                 float _stopTime = _damageAmount / _maxHealth * _maxStopDuration;
                 Reel(_stopTime);
-                Debug.Log("I took " + _damageAmount + " damage and was stopped for " + _stopTime + " seconds :(");
             }
         }
     }
@@ -95,5 +97,11 @@ public class MonsterBehaviour : MonoBehaviour
     {
         yield return new WaitForSeconds(_duration);
         _state = MonsterState.Moving;
+    }
+
+    void Death()
+    {
+        _onDeathEvent.Invoke();
+        Destroy(gameObject);
     }
 }

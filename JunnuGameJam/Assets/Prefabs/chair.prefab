@@ -138,7 +138,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 2
 --- !u!65 &3829832146220024661
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -195,6 +195,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectName: chair
   prompt: pick up
+  _onCollisionEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &6369660124826213597 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4f438b031242bb84d8b2c0a22b5b2087, type: 3}

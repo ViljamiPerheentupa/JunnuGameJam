@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class MonsterSpawner : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    Transform _monsterParent;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        _monsterParent = GameObject.Find("MONSTERS").transform;
+    }
+    public void SpawnMonster(GameObject monster)
+    {
+        Instantiate(monster, transform.position, transform.rotation, _monsterParent);
     }
 }
