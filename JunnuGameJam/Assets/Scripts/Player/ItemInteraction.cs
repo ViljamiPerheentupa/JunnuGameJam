@@ -91,7 +91,7 @@ public class ItemInteraction : MonoBehaviour
             if(_selectedObject.InteractionType() == InteractType.HoldEnvironmental && _interactAction.IsPressed())
             {
                 _selectedObject.Interact();
-            } else if (_selectedObject.InteractionType() != InteractType.HoldEnvironmental && _interactAction.WasPressedThisFrame())
+            } else if (_selectedObject.InteractionType() != InteractType.HoldEnvironmental && _interactAction.WasReleasedThisFrame())
             {
                 _selectedObject.Interact();
             }
@@ -128,5 +128,11 @@ public class ItemInteraction : MonoBehaviour
     public void DeselectObject()
     {
         _selectedObject = null;
+    }
+
+    public void DeleteHeldObject()
+    {
+        _thrower.DestroyHeldObject();
+        DeselectObject();
     }
 }

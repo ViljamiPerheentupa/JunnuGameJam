@@ -10,10 +10,13 @@ public class ItemThrower : MonoBehaviour
     [SerializeField] private float _throwVerticalForce;
     [SerializeField] private float _heldObjectPositionDelay = 0.8f;
     private Vector3 _targetPosition;
-    private GameObject _heldObject;
+    private Vector3 _targetOffset;
+    public GameObject heldObject {  get; private set; }
     private List<Collider> _heldColliders = new List<Collider>();
     private Transform _oldParent;
     private float _pickupTick;
+    private bool _dropping;
+    private float _dropTick;
 
     private InputAction _throwAction;
     private InputAction _interactAction;
@@ -32,21 +35,30 @@ public class ItemThrower : MonoBehaviour
         }
         if(CanThrow() && _interactAction.WasPressedThisFrame() && Time.time - _pickupTick >= 0.1f)
         {
-            DropObject();
+            _dropping = true;
+            _dropTick = Time.time;
         }
-        if(_heldObject != null)
+        if(heldObject != null)
         {
-            _heldObject.transform.position = Vector3.Slerp(_heldObject.transform.position, transform.position, Time.deltaTime * _heldObjectPositionDelay);
-            _heldObject.transform.rotation = Quaternion.Slerp(_heldObject.transform.rotation, transform.rotation, Time.deltaTime * _heldObjectPositionDelay);
+            _targetPosition = transform.position + _targetOffset;
+            heldObject.transform.position = Vector3.Slerp(heldObject.transform.position, _targetPosition, Time.deltaTime * _heldObjectPositionDelay);
+            heldObject.transform.rotation = Quaternion.Slerp(heldObject.transform.rotation, transform.rotation, Time.deltaTime * _heldObjectPositionDelay);
+        }
+        if (_dropping && heldObject != null)
+        {
+            if (Time.time - _dropTick <= 0.4f && _interactAction.WasReleasedThisFrame())
+            {
+                DropObject();
+            }
         }
     }
 
     void Throw()
     {
-        Rigidbody _rb = _heldObject.GetComponent<Rigidbody>();
+        Rigidbody _rb = heldObject.GetComponent<Rigidbody>();
         _rb.isKinematic = false;
         _rb.AddForce(Camera.main.transform.forward * _throwForce + Vector3.up * _throwVerticalForce, ForceMode.Impulse);
-        _heldObject = null;
+        heldObject = null;
         foreach (Collider _collider in _heldColliders)
         {
             _collider.enabled = true;
@@ -56,10 +68,10 @@ public class ItemThrower : MonoBehaviour
 
     public void DropObject()
     {
-        Rigidbody _rb = _heldObject.GetComponent<Rigidbody>();
+        Rigidbody _rb =  heldObject.GetComponent<Rigidbody>();
         _rb.isKinematic = false;
-        _heldObject.transform.parent = _oldParent;
-        _heldObject = null;
+        heldObject.transform.parent = _oldParent;
+        heldObject = null;
         foreach (Collider _collider in _heldColliders)
         {
             _collider.enabled = true;
@@ -69,18 +81,18 @@ public class ItemThrower : MonoBehaviour
 
     public void GrabObject(GameObject _obj)
     {
-        if(_heldObject != null)
+        if(heldObject != null)
         {
             DropObject();
         }
-        Vector3 _offset = Vector3.zero;
+        _targetOffset = Vector3.zero;
         if(_obj.transform.Find("GrabOffset") != null)
         {
-            _offset = _obj.transform.position - _obj.transform.Find("GrabOffset").position;
+            _targetOffset = _obj.transform.position - _obj.transform.Find("GrabOffset").position;
         }
 
-        _obj.transform.position = transform.position + _offset;
-        _targetPosition = _obj.transform.position + _offset;
+        _obj.transform.position = transform.position + _targetOffset;
+        _targetPosition = _obj.transform.position + _targetOffset;
 
         if (_obj.GetComponent<Rigidbody>() != null)
         {
@@ -93,11 +105,18 @@ public class ItemThrower : MonoBehaviour
             _heldColliders.Add(_collider);
             _collider.enabled = false;
         }
-        _heldObject = _obj;
+        heldObject = _obj;
         _pickupTick = Time.time;
     }
     bool CanThrow()
     {
-        return _heldObject != null;
+        return heldObject != null;
+    }
+
+    public void DestroyHeldObject()
+    {
+        Destroy(heldObject);
+        heldObject = null;
+        _heldColliders.Clear();
     }
 }

@@ -32,4 +32,9 @@ public class ThrowableObject : MonoBehaviour, IInteractable
     {
         return interactType;
     }
+
+    public void DestroyObject()
+    {
+        Destroy(gameObject);
+    }
 }

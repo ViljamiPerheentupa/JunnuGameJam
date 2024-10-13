@@ -9,6 +9,8 @@ public class EnvironmentInteractable : MonoBehaviour, IInteractable
 {
     [SerializeField] private string objectName;
     [SerializeField] private string prompt;
+    [SerializeField] private string requiredItem;
+    [SerializeField] private bool _depleteRequiredItem;
     [SerializeField] private InteractType interactType;
     [SerializeField] private float _holdDuration;
     [SerializeField] private bool _progressSaved;
@@ -44,6 +46,20 @@ public class EnvironmentInteractable : MonoBehaviour, IInteractable
     }
     public void Interact()
     {
+        if(requiredItem != string.Empty)
+        {
+            ItemThrower _thrower = FindFirstObjectByType<ItemThrower>();
+            if(_thrower.heldObject == null)
+            {
+                RequiresPrompt.Instance.SetPrompt("Requires " + requiredItem + ".");
+                return;
+            }
+            if (_thrower.heldObject != null && _thrower.heldObject.GetComponent<IInteractable>().ObjectName() != requiredItem)
+            {
+                RequiresPrompt.Instance.SetPrompt("Requires " + requiredItem + ".");
+                return;
+            }
+        }
         if(interactType == InteractType.HoldEnvironmental)
         {
             _holdTime += Time.deltaTime;
@@ -59,10 +75,18 @@ public class EnvironmentInteractable : MonoBehaviour, IInteractable
                     ItemInteraction.Instance.DeselectObject();
                 }
                 _interactEvent.Invoke();
+                if(_depleteRequiredItem && requiredItem != string.Empty)
+                {
+                    ItemInteraction.Instance.DeleteHeldObject();
+                }
             }
         } else if(interactType == InteractType.Environmental)
         {
             _interactEvent.Invoke();
+            if (_depleteRequiredItem && requiredItem != string.Empty)
+            {
+                ItemInteraction.Instance.DeleteHeldObject();
+            }
         }
     }
 
