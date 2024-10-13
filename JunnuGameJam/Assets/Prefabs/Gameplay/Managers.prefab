@@ -52,6 +52,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _menuGroup: {fileID: 0}
   _introGroup: {fileID: 0}
+  _pauseVolume: {fileID: 0}
+  _deathGroup: {fileID: 0}
+  _deathText: {fileID: 0}
+  _winGroup: {fileID: 0}
+  SFXMixer: {fileID: 24100000, guid: c23efcb49a054cb42800593dd5e22b68, type: 2}
 --- !u!114 &8689684033555035148
 MonoBehaviour:
   m_ObjectHideFlags: 0

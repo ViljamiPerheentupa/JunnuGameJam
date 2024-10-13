@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
@@ -30,6 +31,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] CanvasGroup _winGroup;
 
+    [SerializeField] AudioMixer SFXMixer;
+
     private void Awake()
     {
         if(Instance == null)
@@ -47,6 +50,7 @@ public class GameManager : MonoBehaviour
     {
         _introTick = Time.time;
         _introGroup.alpha = 1f;
+        SFXMixer.SetFloat("SFXVolume", -80f);
     }
 
 
@@ -104,6 +108,7 @@ public class GameManager : MonoBehaviour
         SpookyManager.Instance.StartSpooky();
         TimeManager.Instance.StartTime();
         StartDay();
+        SFXMixer.SetFloat("SFXVolume", 0f);
     }
 
     public void StartDay()
