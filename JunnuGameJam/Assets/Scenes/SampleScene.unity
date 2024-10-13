@@ -10541,6 +10541,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b320de5847920e4998a72a443f4c608, type: 3}
+--- !u!1001 &4698244505044153133
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7461147241234404934, guid: 9f6eacd6dd8e7cf41b2140167f5d1b4d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.7251785
+      objectReference: {fileID: 0}
+    - target: {fileID: 7461147241234404934, guid: 9f6eacd6dd8e7cf41b2140167f5d1b4d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.34500527
+      objectReference: {fileID: 0}
+    - target: {fileID: 7461147241234404934, guid: 9f6eacd6dd8e7cf41b2140167f5d1b4d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8.111262
+      objectReference: {fileID: 0}
+    - target: {fileID: 7461147241234404934, guid: 9f6eacd6dd8e7cf41b2140167f5d1b4d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7461147241234404934, guid: 9f6eacd6dd8e7cf41b2140167f5d1b4d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7461147241234404934, guid: 9f6eacd6dd8e7cf41b2140167f5d1b4d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7461147241234404934, guid: 9f6eacd6dd8e7cf41b2140167f5d1b4d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7461147241234404934, guid: 9f6eacd6dd8e7cf41b2140167f5d1b4d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7461147241234404934, guid: 9f6eacd6dd8e7cf41b2140167f5d1b4d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7461147241234404934, guid: 9f6eacd6dd8e7cf41b2140167f5d1b4d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7836405523768003836, guid: 9f6eacd6dd8e7cf41b2140167f5d1b4d, type: 3}
+      propertyPath: m_Name
+      value: monster_fish_stick
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9f6eacd6dd8e7cf41b2140167f5d1b4d, type: 3}
 --- !u!1001 &4806297989755086600
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11279,3 +11336,4 @@ SceneRoots:
   - {fileID: 5066529850914906781}
   - {fileID: 417180776628587654}
   - {fileID: 515630597}
+  - {fileID: 4698244505044153133}
