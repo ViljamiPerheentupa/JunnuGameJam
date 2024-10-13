@@ -5,8 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
+    [SerializeField] Animator _anim;
+    public void Awake()
+    {
+        GameObject.Find("MenuAmbiance").GetComponent<MenuAmbiance>().MenuAmbianceState(true);
+    }
     public void StartGame()
     {
-        SceneManager.LoadSceneAsync(1);
+        _anim.Play("menu_blackout");
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
