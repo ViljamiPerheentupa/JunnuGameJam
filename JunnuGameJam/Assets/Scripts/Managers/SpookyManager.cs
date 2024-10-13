@@ -26,6 +26,13 @@ public class SpookyManager : MonoBehaviour
         }
     }
 
+    public void StartSpooky()
+    {
+        _noisesOn = true;
+        RandomizeSpooky();
+        GameObject.Find("MenuAmbiance").gameObject.GetComponent<MenuAmbiance>().MenuAmbianceState(false);
+    }
+
     public void RandomizeSpooky()
     {
         _noiseCooldown = RandomDuration();
@@ -45,10 +52,6 @@ public class SpookyManager : MonoBehaviour
                 _noiseTick = Time.time;
                 _noiseCooldown = RandomDuration();
             }
-        }
-        if (Keyboard.current.lKey.wasPressedThisFrame)
-        {
-            RandomizeSpooky();
         }
     }
 

@@ -70,6 +70,7 @@ public class TimeManager : MonoBehaviour
                         _fadeInTick = Time.unscaledTime;
                         currentDay++;
                         PauseTime();
+                        GameManager.Instance.EndDay();
                     }
                 }
             }
@@ -107,6 +108,7 @@ public class TimeManager : MonoBehaviour
                 _daySwitch = true;
                 _switchTick = Time.unscaledTime;
                 _dayText.text = "Day " + currentDay;
+                AudioFW.Instance.PlaySound("NewDay");
             }
         }
         if (_daySwitch)

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MonsterSpawner : MonoBehaviour
 {
+    [SerializeField] AudioSource[] _spawnSounds;
+
     Transform _monsterParent;
 
     private void Start()
@@ -12,6 +14,7 @@ public class MonsterSpawner : MonoBehaviour
     }
     public void SpawnMonster(GameObject monster)
     {
+        _spawnSounds[Random.Range(0, _spawnSounds.Length)].Play();
         Instantiate(monster, transform.position, transform.rotation, _monsterParent);
     }
 }

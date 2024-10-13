@@ -107,7 +107,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  _dayLength: 300
+  _dayLength: 270
+  _gracePeriod: 30
   _monsterPrefabs:
   - {fileID: 1728201280864451658, guid: 134266c898120334182d43a14012792f, type: 3}
   - {fileID: 3881572418945072522, guid: fa7f86f995d3e2a4ea7b9a7f69bf7703, type: 3}
@@ -138,4 +139,4 @@ MonoBehaviour:
   _noiseMinMax:
     minValue: 12
     maxValue: 40
-  _noisesOn: 1
+  _noisesOn: 0

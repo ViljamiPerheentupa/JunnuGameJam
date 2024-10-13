@@ -11,11 +11,12 @@ public class EventManager : MonoBehaviour
 
     [SerializeField] private MinMaxInt[] waveSpawnAmounts;
     [SerializeField] private MonsterSpawner[] spawners;
-    [SerializeField] private float _dayLength = 300f;
-    bool _spawning, _lastDay;
+    [SerializeField] private float _dayLength = 270f;
+    [SerializeField] private float _gracePeriod = 30f;
+    bool _spawning, _lastDay, _graceActive, _soundWarning;
     int currentSpawnAmount;
     int _spawned;
-    float _spawnTick;
+    float _spawnTick, _graceTick;
     float _currentSpawnTime;
     [SerializeField] GameObject[] _monsterPrefabs;
     [SerializeField] private float _lastDaySpawnTime = 12.5f;
@@ -33,6 +34,19 @@ public class EventManager : MonoBehaviour
 
     void Update()
     {
+        if (_graceActive)
+        {
+            if(Time.time - _graceTick >= _gracePeriod)
+            {
+                _spawning = true;
+                SpawnMonster();
+                _graceActive = false;
+            } else if(Time.time - _graceTick >= _gracePeriod - 2f && !_soundWarning)
+            {
+                AudioFW.Instance.PlaySound("DarkRise");
+                _soundWarning = true;
+            }
+        }
         if (_spawning)
         {
             if(_spawned < currentSpawnAmount)
@@ -53,18 +67,17 @@ public class EventManager : MonoBehaviour
                 SpawnDay7Monster();
             }
         }
-        if (Keyboard.current.hKey.wasPressedThisFrame)
-        {
-            Day7();
-        }
     }
 
     public void StartWave(int index)
     {
         currentSpawnAmount = SpawnAmount(index);
         _spawned = 0;
-        _spawning = true;
-        SpawnMonster();
+        //_spawning = true;
+        //SpawnMonster();
+        _graceActive = true;
+        _graceTick = Time.time;
+        _soundWarning = false;
     }
 
     public void Day7()
