@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +14,7 @@ public class TimeManager : MonoBehaviour
     private int currentDay;
     public DateAndTime time;
     [SerializeField] private DateAndTime _startTime;
+    [SerializeField] private DateAndTime _dayEndTime;
     [SerializeField] float _timeMultiplier;
     float _timeTick;
 
@@ -44,6 +46,10 @@ public class TimeManager : MonoBehaviour
     {
         TimePassage();
         SwitchDay();
+        if (Keyboard.current.enterKey.wasPressedThisFrame)
+        {
+            StartTime();
+        }
     }
 
     void TimePassage()
@@ -58,7 +64,7 @@ public class TimeManager : MonoBehaviour
                 {
                     seconds -= 60f;
                     time.AddMinutes(1);
-                    if (!_daySwitch && time.days != currentDay)
+                    if (time.hours >= _dayEndTime.hours && time.minutes >= _dayEndTime.minutes)
                     {
                         _fadeIn = true;
                         _fadeInTick = Time.unscaledTime;

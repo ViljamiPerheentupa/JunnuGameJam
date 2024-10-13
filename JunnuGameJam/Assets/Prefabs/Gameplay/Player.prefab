@@ -1271,6 +1271,8 @@ MonoBehaviour:
   currentData: {fileID: 11400000, guid: 002521737dba8e64cb181fa958162f32, type: 2}
   defaultData: {fileID: 11400000, guid: 002521737dba8e64cb181fa958162f32, type: 2}
   sprintData: {fileID: 11400000, guid: b811ca44bd04590449575eaddc6392e2, type: 2}
+  slowData: {fileID: 11400000, guid: 58dba1a5c2ef18a4186d687a2c060c09, type: 2}
+  staminaPerJump: 4
   gravity: -20
   coyoteTimeMax: 0.1
   maxJumpQueueTime: 0.02
@@ -1288,7 +1290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxStamina: 100
-  _drainPerSecond: 1
+  _drainPerSecond: 2
   _staminaGroup: {fileID: 3719173167196393054}
   _staminaFill: {fileID: 7533452272184475735}
   _staminaBarAppearTime: 0.25

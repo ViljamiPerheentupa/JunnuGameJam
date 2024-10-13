@@ -12,6 +12,9 @@ public class PlayerMovement : MonoBehaviour, IForceInheritance, IChangeMovementD
     public MovementData currentData;
     [SerializeField] MovementData defaultData;
     [SerializeField] MovementData sprintData;
+    [SerializeField] MovementData slowData;
+
+    [SerializeField] private float staminaPerJump;
 
     public float gravity;
 
@@ -58,6 +61,13 @@ public class PlayerMovement : MonoBehaviour, IForceInheritance, IChangeMovementD
 
     private void Update()
     {
+        if (Stamina.Instance.CanRun() && currentData != sprintData)
+        {
+            currentData = defaultData;
+        } else if(!Stamina.Instance.CanRun())
+        {
+            currentData = slowData;
+        }
         //Vector3 oldPosition = transform.position;
         if (canMove)
         {
@@ -171,6 +181,10 @@ public class PlayerMovement : MonoBehaviour, IForceInheritance, IChangeMovementD
         if (wishJump)
         {
             Jump();
+            if (Stamina.Instance.CanRun())
+            {
+                Stamina.Instance.ReduceStamina(staminaPerJump);
+            }
         } else
         {
             float g = -1f;
@@ -311,13 +325,12 @@ public class PlayerMovement : MonoBehaviour, IForceInheritance, IChangeMovementD
 
         void Sprint()
         {
-            if(_sprintAction.IsPressed() && currentData.dataName != "Sprint" && Stamina.Instance.CanRun())
+            if(_sprintAction.IsPressed() && currentData != sprintData && Stamina.Instance.CanRun())
             {
                 currentData = sprintData;
                 Stamina.Instance.SetStaminaUseState(true);
             } else if((currentData.dataName == "Sprint" && !_sprintAction.IsPressed()) || (currentData.dataName == "Sprint" && !Stamina.Instance.CanRun()))
             {
-                currentData = defaultData;
                 Stamina.Instance.SetStaminaUseState(false);
             }
         }

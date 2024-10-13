@@ -105,7 +105,8 @@ MonoBehaviour:
   - {fileID: 0}
   _dayLength: 300
   _monsterPrefabs:
-  - {fileID: 8518799521911796683, guid: 07e4fd9a9bcceff4db839580ec835ad5, type: 3}
+  - {fileID: 1728201280864451658, guid: 134266c898120334182d43a14012792f, type: 3}
+  - {fileID: 3881572418945072522, guid: fa7f86f995d3e2a4ea7b9a7f69bf7703, type: 3}
   _lastDaySpawnTime: 12.5
 --- !u!114 &1876607489980028360
 MonoBehaviour:

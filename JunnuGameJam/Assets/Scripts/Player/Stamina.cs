@@ -82,7 +82,7 @@ public class Stamina : MonoBehaviour
 
     void UITime()
     {
-        if(Time.time >= _uiTick + _staminaBarShowTime)
+        if(Time.time >= _uiTick + _staminaBarShowTime && !_usingStamina)
         {
             _uiHiding = true;
             _uiHideTick = Time.time;
