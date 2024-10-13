@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
@@ -23,6 +24,11 @@ public class GameManager : MonoBehaviour
     bool _intro = true;
 
     int _enemiesKilled = 0;
+
+    [SerializeField] CanvasGroup _deathGroup;
+    [SerializeField] TMP_Text _deathText;
+
+    [SerializeField] CanvasGroup _winGroup;
 
     private void Awake()
     {
@@ -65,7 +71,8 @@ public class GameManager : MonoBehaviour
         if (_menuAction.WasPressedThisFrame() && !_gamePaused)
         {
             PauseGame();
-        } else if (_menuAction.WasPressedThisFrame() && _gamePaused)
+        }
+        if (_menuAction.WasPressedThisFrame() && _gamePaused)
         {
             ResumeGame();
         }
@@ -81,7 +88,7 @@ public class GameManager : MonoBehaviour
         CameraController.Instance.cameraState = CameraState.Locked;
     }
 
-    void ResumeGame()
+    public void ResumeGame()
     {
         Time.timeScale = 1f;
         _menuGroup.alpha = 0f;
@@ -101,7 +108,7 @@ public class GameManager : MonoBehaviour
 
     public void StartDay()
     {
-        if(_currentDay < 7)
+        if(_currentDay < 6)
         {
             EventManager.Instance.StartWave(_currentDay);
         } else
@@ -113,14 +120,31 @@ public class GameManager : MonoBehaviour
     public void EndDay()
     {
         RemoveMonsters();
-        if(_currentDay < 7)
+        if(_currentDay < 6)
         {
             _currentDay++;
         } else
         {
-            //WIN
+            PlayerWin();
         }
 
+    }
+
+    public void PlayerDeath()
+    {
+        Time.timeScale = 0f;
+        _deathGroup.alpha = 1f;
+        _deathGroup.blocksRaycasts = true;
+        _deathGroup.interactable = true;
+        _deathText.text = "having survived " + (_currentDay + 1) + " days...";
+    }
+
+    public void PlayerWin()
+    {
+        Time.timeScale = 0f;
+        _winGroup.alpha = 1f;
+        _winGroup.blocksRaycasts = true;
+        _winGroup.interactable = true;
     }
 
     void RemoveMonsters()
