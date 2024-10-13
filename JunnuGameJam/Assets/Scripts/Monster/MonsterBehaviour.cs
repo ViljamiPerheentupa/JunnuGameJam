@@ -19,6 +19,7 @@ public class MonsterBehaviour : MonoBehaviour
     float _reelTick, _reelDuration;
     bool _swinging;
     [SerializeField] UnityEvent _onDeathEvent;
+    [SerializeField] Animator _animator;
     void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -35,12 +36,13 @@ public class MonsterBehaviour : MonoBehaviour
             {
                 _health = 0f;
                 _state = MonsterState.Death;
-                Death();
+                _animator.SetTrigger("Death");
             } else
             {
                 _health -= _damageAmount;
                 float _stopTime = _damageAmount / _maxHealth * _maxStopDuration;
                 Reel(_stopTime);
+                _animator.SetTrigger("Reel");
             }
         }
     }
@@ -58,7 +60,7 @@ public class MonsterBehaviour : MonoBehaviour
         }
         if(_state == MonsterState.Swinging)
         {
-            Swing();
+            _animator.SetTrigger("Attack");
         }
         if(_state == MonsterState.Reeling)
         {
@@ -83,7 +85,7 @@ public class MonsterBehaviour : MonoBehaviour
         _reelTick = Time.time;
     }
 
-    void Swing()
+    public void Swing()
     {
         if (Physics.CheckBox(transform.forward + Vector3.forward, Vector3.one, transform.rotation, _mask))
         {
@@ -99,7 +101,7 @@ public class MonsterBehaviour : MonoBehaviour
         _state = MonsterState.Moving;
     }
 
-    void Death()
+    public void Death()
     {
         _onDeathEvent.Invoke();
         Destroy(gameObject);
